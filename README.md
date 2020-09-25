@@ -1,5 +1,5 @@
 # Jira Software
-<img align="left" width="100" src="images/jira-logo-new-centr.png">
+<img align="left" width="100" src="images/jira-logo-new.png">
 
 JIRA Software is the perfect tool for planning, managing, tracking, and reviewing your team's performance during the entire software development process. This solution is most widely used among developers, in the form of a bug-tracking system. Universal portal for developers.
 
