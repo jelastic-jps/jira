@@ -1,0 +1,47 @@
+type: update
+name: Jira Logic
+id: jira-software-logic
+   
+onAfterBindSSL: 
+  - cmd[bl]: source /opt/letsencrypt/settings && echo $domain
+  - set:
+      domain: ${response.out}
+  - env.control.AddContainerEnvVars[cp]:
+       vars: 
+         ATL_PROXY_NAME: ${this.domain}
+  - restartContainers[cp]
+
+onAfterStart:
+  restartContainers[cp]
+
+onAfterClone:
+  - script: return {result:0, jps:MANIFEST};
+  - install: ${response.jps}
+    envName: ${event.response.env.envName}    
+    settings: 
+      jira_version: ${settings.jira_version}
+  - env.control.RestartNodes [cp]:
+      envName: ${event.response.env.envName}
+  
+onAfterMigrate:
+  - env.control.AddContainerEnvVars:  
+      domain: ${env.domain} 
+      nodeGroup: cp
+      vars:
+        ATL_PROXY_NAME: ${env.domain}
+  - restartContainers[cp]
+
+onAfterSetCloudletCount[cp]:
+  - cmd[cp]: free -m | sed -n '2p' | awk '{printf "%.f", $2 * 0.7}'
+  - env.control.AddContainerEnvVars[cp]:
+      vars:
+        JVM_MAXIMUM_MEMORY: ${response.out}m
+  - restartContainers[cp]
+
+onInstall:
+  - cmd[cp]: free -m | sed -n '2p' | awk '{printf "%.f", $2 * 0.7}'
+  - env.control.AddContainerEnvVars[cp]:
+      vars:
+        ATL_PROXY_NAME: ${env.domain}
+        JVM_MAXIMUM_MEMORY: ${response.out}m
+  - env.control.ExecDockerRunCmd[${nodes.cp.join(id,)}]

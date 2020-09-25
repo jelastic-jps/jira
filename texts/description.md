@@ -1,0 +1,1 @@
+JIRA Software is a project management software. Your team members can use JIRA to plan, track, and release effective software. You can create problem histories, plan sprints, and assign tasks to your teammates, etc.

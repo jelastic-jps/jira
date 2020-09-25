@@ -1,0 +1,92 @@
+type: install
+appVersion: latest
+id: jira-software
+name: Jira Software 
+logo: /images/jira-logo-small-centr.svg
+baseUrl: https://raw.githubusercontent.com/vlobzakov/jira/master
+
+categories:
+  - apps/dev-and-admin-tools
+
+description:
+  text: JIRA is a project management software. Your team members can use JIRA to plan, track, and release effective software. You can create problem histories, plan sprints, and assign tasks to your teammates.
+  short: Jira ticketing system
+
+settings:
+    fields:
+      - name: jira_version
+        caption: Jira Version
+        type: list
+        required: true
+        values: []
+      - type: displayfield
+ 
+onBeforeInit: /scripts/beforeinit.js
+   
+globals:
+  dbName: jiradb
+  dbUser: jadmin
+  dbPasswd: ${fn.password}
+  protocol: https
+  proxyPort: 443
+  
+ssl: true
+skipNodeEmails: true
+
+nodes:
+  - cloudlets: 4
+    count: 1
+    nodeGroup: bl
+    nodeType: nginx
+    extip: false
+ 
+  - cloudlets: 12
+    nodeGroup: sqldb
+    nodeType: postgres10
+    count: 1
+
+  - cloudlets: 32
+    nodeGroup: cp
+    image: atlassian/jira-software:8.6
+    env:
+      ATL_JDBC_USER: ${globals.dbUser}
+      ATL_JDBC_PASSWORD: ${globals.dbPasswd}
+      ATL_DB_DRIVER: org.postgresql.Driver
+      ATL_DB_TYPE: postgres72    
+      ATL_DB_SCHEMA_NAME: public
+      ATL_JDBC_URL: jdbc:postgresql://sqldb/${globals.dbName}
+      ATL_PROXY_PORT: ${globals.proxyPort}
+      ATL_TOMCAT_SCHEME: https
+      ATL_TOMCAT_SECURE: true
+      _JAVA_OPTIONS: "-XX:+UseG1GC"
+
+
+onInstall:
+  
+  - install: 
+      jps: https://raw.githubusercontent.com/vlobzakov/jira/master/scripts/logic.yml
+      
+  - script: /scripts/idna.js
+  - setGlobals:
+      DOMAIN: ${response.domain} 
+
+  - install-LE-addon 
+  - createDB
+  - restartContainers[cp]
+        
+actions:
+  createDB:
+     - cmd[${nodes.sqldb.master.id}]: 
+         psql -Uwebadmin postgres -c "CREATE DATABASE ${globals.dbName} WITH ENCODING 'UNICODE' LC_COLLATE 'C' LC_CTYPE 'C' TEMPLATE template0;"
+         psql -Uwebadmin postgres -c "CREATE USER ${globals.dbUser} WITH ENCRYPTED PASSWORD '${globals.dbPasswd}' SUPERUSER;"
+  
+  install-LE-addon:
+    - install: https://github.com/jelastic-jps/lets-encrypt/blob/master/manifest.jps?_r=${fn.random}
+      nodeGroup: bl
+      skipEmail: false
+      settings:
+        customDomains: ${globals.DOMAIN}
+        fallbackToX1: true
+  
+startPage: ${globals.protocol}://${env.domain} 
+success: /texts/success-w-db.md
