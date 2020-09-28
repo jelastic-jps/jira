@@ -18,7 +18,7 @@ Click the **DEPLOY TO JELASTIC** button, specify your email address within the w
 If required change **Environment** Name and Destination **Region**.
 
 <p align="left">
-<img src="images/install.png" width="515">
+<img src="images/new-install-new-logo.png" width="515">
 </p>
 
 Once the installation is completed you may proceed to the initial setup **URL** of your Chat System by pressing **Open in Browser** button in a successful installation window.  
