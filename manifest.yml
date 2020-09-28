@@ -47,7 +47,7 @@ nodes:
 
   - cloudlets: 32
     nodeGroup: cp
-    image: atlassian/jira-software:8.6
+    image: atlassian/jira-software:${settings.jira_version}
     env:
       ATL_JDBC_USER: ${globals.dbUser}
       ATL_JDBC_PASSWORD: ${globals.dbPasswd}
