@@ -64,7 +64,7 @@ nodes:
 onInstall:
   
   - install: 
-      jps: https://raw.githubusercontent.com/vlobzakov/jira/master/scripts/logic.yml
+      jps: https://raw.githubusercontent.com/jelastic-jps/jira/master/scripts/logic.yml
       
   - script: /scripts/idna.js
   - setGlobals:
