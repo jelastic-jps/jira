@@ -20,7 +20,6 @@ settings:
         type: list
         required: true
         values: []
-      - type: displayfield
  
 onBeforeInit: /scripts/beforeinit.js
    
