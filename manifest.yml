@@ -67,7 +67,7 @@ onInstall:
       jps: https://raw.githubusercontent.com/jelastic-jps/jira/master/scripts/logic.yml
       
   - script: /scripts/idna.js
-    domains: ${env.name}
+    domains: ${env.domain}
   - setGlobals:
       DOMAIN: ${response.domains} 
 
