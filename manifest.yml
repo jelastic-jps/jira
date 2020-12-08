@@ -67,8 +67,9 @@ onInstall:
       jps: https://raw.githubusercontent.com/jelastic-jps/jira/master/scripts/logic.yml
       
   - script: /scripts/idna.js
+    domains: ${env.name}
   - setGlobals:
-      DOMAIN: ${response.domain} 
+      DOMAIN: ${response.domains} 
 
   - install-LE-addon 
   - createDB
