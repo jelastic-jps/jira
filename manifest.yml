@@ -64,7 +64,7 @@ nodes:
 onInstall:
   
   - install: 
-      jps: https://raw.githubusercontent.com/jelastic-jps/jira/master/scripts/logic.yml
+      jps: ${baseUrl}Ї/scripts/logic.yml
       
   - script: /scripts/idna.js
     domains: ${env.domain}
