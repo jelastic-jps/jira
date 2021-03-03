@@ -64,7 +64,7 @@ nodes:
 onInstall:
   
   - install: 
-      jps: ${baseUrl}Ї/scripts/logic.yml
+      jps: ${baseUrl}/scripts/logic.yml
       
   - script: /scripts/idna.js
     domains: ${env.domain}
