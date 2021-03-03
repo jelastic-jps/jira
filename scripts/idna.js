@@ -326,7 +326,7 @@ var punycode = new function Punycode() {
 domains = domains.split(',');
 
 for (var i = 0, n = domains.length; i < n; i++) {
-    parsed.push(punycode.ToASCII(java.lang.String(domains[i]).trim()));
+    parsed.push(punycode.ToASCII(domains[i].trim()));
 }
 
 return { result: 0, domains: parsed }
