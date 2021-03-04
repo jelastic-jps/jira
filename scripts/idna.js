@@ -324,8 +324,10 @@ var punycode = new function Punycode() {
 }();
 
 domains = domains.split(',');
-
+jelastic.marketplace.console.WriteLog("domains->" + domains);
 for (var i = 0, n = domains.length; i < n; i++) {
+    jelastic.marketplace.console.WriteLog("domains[i]->" + domains[i]);
+    jelastic.marketplace.console.WriteLog("java.lang.String(domains[i]).trim() ->" + java.lang.String(domains[i]).trim());
     parsed.push(punycode.ToASCII(java.lang.String(domains[i]).trim()));
 }
 
