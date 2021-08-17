@@ -38,7 +38,7 @@ nodes:
     count: 1
     nodeGroup: bl
     nodeType: nginx
-    extip: true
+    extip: false
  
   - cloudlets: 12
     nodeGroup: sqldb
