@@ -1,5 +1,5 @@
 type: install
-jpsVersion: '1.9.2'
+jpsVersion: '1.8.1'
 appVersion: latest
 id: jira-software
 name: Jira Software 
