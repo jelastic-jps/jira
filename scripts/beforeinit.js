@@ -3,11 +3,11 @@ import com.hivext.api.core.utils.JSONUtils;
 var values = jps.settings.fields[0].values;
 var tags = toNative(new com.hivext.api.core.utils.Transport().get("https://registry.hub.docker.com/v1/repositories/atlassian/jira-software/tags"));
 var tagsLength = tags.length;
-  
+
 function getVersions(edition, url) {
   var body = String(new com.hivext.api.core.utils.Transport().get(url));
   var length = body.length;
-  var arr = JSON.parse(body.substring(10, length -1));
+  var arr = typeof JSON !== "undefined" ? JSON.parse(body.substring(10, length -1)) : eval(toNative(body).substring(10, body.length - 1));
   for (var i in arr) {
     if (arr[i].edition == edition && arr[i].platform == "Unix") {
         if (edition == "Standard") { 
