@@ -4,7 +4,7 @@ appVersion: latest
 id: jira-software
 name: Jira Software 
 logo: /images/jira-logo-small-new.svg
-baseUrl: https://raw.githubusercontent.com/sych74/jira/master
+baseUrl: https://raw.githubusercontent.com/jelastic-jps/jira/master
 
 categories:
   - apps/dev-and-admin-tools
