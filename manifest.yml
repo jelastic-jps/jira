@@ -20,6 +20,12 @@ settings:
         type: list
         required: true
         values: []
+      - type: displayfield
+        hideLabel: true
+        hidden: true
+        name: message   
+        value: 1
+        markup:
  
 onBeforeInit: /scripts/beforeinit.js
    
