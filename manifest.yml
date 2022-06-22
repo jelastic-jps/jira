@@ -26,7 +26,7 @@ settings:
         name: message   
         value: 1
         markup:
- 
+
 onBeforeInit: /scripts/beforeinit.js
    
 globals:

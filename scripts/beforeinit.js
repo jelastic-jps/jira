@@ -8,11 +8,10 @@ var values = jps.settings.fields[0].values,
     extIPperEnv = "environment.externalip.maxcount",
     extIPperNode = "environment.externalip.maxcount.per.node",
     markup = "", cur = null, text = "used", prod = true;
-
+  
 var quotas = jelastic.billing.account.GetQuotas(extIP + ";"+extIPperEnv+";" + extIPperNode).array;
 for (var i = 0; i < quotas.length; i++){
   var q = quotas[i], n = toNative(q.quota.name);
-
   if (n == extIP &&  !q.value){
     err(q, "required", 1, true);
     prod = false; 
@@ -42,10 +41,6 @@ if (!prod) {
 getVersions("Standard",  "https://my.atlassian.com/download/feeds/current/jira-software.json");
 getVersions("Enterprise", "https://my.atlassian.com/download/feeds/archived/jira-software.json");
 
-if (values.length > 0) {  
-  return { result: 0, settings: jps.settings };    
-}
-
 function getVersions(edition, url) {
   var body = String(new com.hivext.api.core.utils.Transport().get(url));
   var length = body.length;
@@ -72,6 +67,7 @@ function getVersions(edition, url) {
 if (values.length > 0) {  
   return { result: 0, settings: jps.settings };    
 }
+
 
 function err(e, text, cur, override){
   var m = (e.quota.description || e.quota.name) + " - " + e.value + ", " + text + " - " + cur + ". ";
