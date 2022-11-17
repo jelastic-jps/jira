@@ -48,7 +48,7 @@ nodes:
  
   - cloudlets: 12
     nodeGroup: sqldb
-    nodeType: postgres10
+    nodeType: postgres11
     count: 1
 
   - cloudlets: 32
