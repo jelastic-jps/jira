@@ -71,11 +71,6 @@ onInstall:
   
   - install: 
       jps: ${baseUrl}/scripts/logic.yml
-      
-  - script: /scripts/idna.js
-    domains: ${env.domain}
-  - setGlobals:
-      DOMAIN: ${response.domains} 
 
   - install-LE-addon 
   - createDB
@@ -92,7 +87,7 @@ actions:
       nodeGroup: bl
       skipEmail: false
       settings:
-        customDomains: ${globals.DOMAIN}
+        test: false
         fallbackToX1: true
   
 startPage: ${globals.protocol}://${env.domain} 
